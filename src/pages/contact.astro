@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const title = "Contact";
+---
+
+<BaseLayout title={title}>
+    <h2 class="text-gray-500 text-md pb-4">{title}</h2>
+    <form class="flex flex-col gap-2" name="contact" method="POST" data-netlify="true">
+        <label>
+            <span class="text-gray-500 text-sm">お名前</span><br />
+            <input id="name" type="text" placeholder="Name" class="input" required />
+        </label>
+        <label>
+            <span class="text-gray-500 text-sm">Email</span><br />
+            <input id="email" type="text" placeholder="Name" class="input" required />
+        </label>
+        <label>
+            <span class="text-gray-500 text-sm">お問い合わせ内容</span><br />
+            <textarea id="message" placeholder="Message" class="input pt-2" required maxlength="400"></textarea>
+        </label>
+        <button type="submit" class="btn btn-primary w-fit mt-4">送信</button>
+    </form>
+</BaseLayout>

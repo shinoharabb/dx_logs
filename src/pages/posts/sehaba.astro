@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "並製本の背幅計算";
+---
+
+<BaseLayout title={title}>
+    <h2 class="text-gray-500 text-md pb-4">{title}</h2>
+    <form class="flex flex-col gap-2">
+        <label>
+            <span class="text-gray-500 text-sm">表紙用紙の厚み（μ）</span>
+            <input id="cover" type="text" placeholder="表紙用紙の厚みを入力してください" class="input" required />
+        </label>
+        <label>
+            <span class="text-gray-500 text-sm">本文用紙の厚み（μ）</span>
+            <input id="main" type="text" placeholder="本文用紙の厚みを入力してください）" class="input" required />
+        </label>
+        <label>
+            <span class="text-gray-500 text-sm">ページ数（頁）</span>
+            <input id="pages" type="text" placeholder="ページ数を入力してください" class="input" required />
+        </label>
+        <button id="btn" class="btn btn-primary w-fit">並製本の背幅を算出する</button>
+    </form>
+    <section>
+        <p class="pt-2">無線とじの背幅：<span id="musen"></span></p>
+        <p class="pt-2">糸かがりの背幅：<span id="ito"></span></p>
+    </section>
+    <div role="alert" class="w-sm alert alert-warning mt-8 hidden" id="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info h-6 w-6 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>数値を入力してください</span>
+    </div>
+</BaseLayout>
+
+<script>
+    {
+        const cover = document.querySelector<HTMLInputElement>("#cover");
+        const main = document.querySelector<HTMLInputElement>("#main");
+        const pages = document.querySelector<HTMLInputElement>("#pages");
+        const btn = document.querySelector<HTMLButtonElement>("#btn");
+        const musen = document.querySelector<HTMLSpanElement>("#musen");
+        const ito = document.querySelector<HTMLSpanElement>("#ito");
+
+        btn?.addEventListener("click", (e: Event) => {
+            e.preventDefault();
+            const coverValue = Number(cover?.value);
+            const mainValue = Number(main?.value);
+            const pagesValue = Number(pages?.value);
+
+            if (!coverValue || !mainValue || !pagesValue) {
+                alert("数値を入力してください");
+                return;
+                // const alert = document.querySelector("#alert");
+                // if(alert){
+                //     alert?.classList.add("add-block");
+                //     setTimeout(()=> {
+                //         alert?.classList.remove("add-block");
+                //     },2000)
+                // }
+                // return;
+            }
+
+            const musenValue = Math.round(((coverValue * 2) + (mainValue * (pagesValue / 2))) /1000 + 1);
+            const itoValue = Math.round(((coverValue * 2) + (mainValue * (pagesValue / 2))) /1000 + 2);
+
+            if (musen) musen.textContent = String(musenValue);
+            if (ito) ito.textContent = String(itoValue);
+        });
+    }
+</script>
+
+<style>
+    .add-block {
+        display: block;
+    }
+</style>

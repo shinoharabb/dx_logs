@@ -1,17 +1,15 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { posts } from "../../consts";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+	<h2 class="text-gray-500 text-lg">Posts</h2>
+	<ul>
+		{posts.map((post: any) => (
+			<li class="py-2">
+				<a href={post.url} class="link link-hover">{post.title}</a><small class="pl-4">作成日：{post.date}</small>
+			</li>
+		))}
+	</ul>
+</BaseLayout>
