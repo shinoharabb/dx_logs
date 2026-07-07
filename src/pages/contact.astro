@@ -5,7 +5,7 @@ const title = "Contact";
 
 <BaseLayout title={title}>
     <h2 class="text-gray-500 text-md pb-4">{title}</h2>
-    <form class="flex flex-col gap-2" name="contact" method="POST" data-netlify="true">
+    <form class="flex flex-col gap-2" name="contact" method="POST" data-netlify="true" action="/posts/success">
         <label>
             <span class="text-gray-500 text-sm">お名前</span><br />
             <input id="name" type="text" placeholder="Name" class="input" name="name" required />
